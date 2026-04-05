@@ -1,0 +1,46 @@
+project:
+  name: credit-risk-analysis
+  random_state: 42
+
+paths:
+  raw_data_dir: data/raw
+  processed_data_dir: data/processed
+  model_dir: models
+  submission_dir: results/submissions
+  report_dir: results/reports
+  figure_dir: results/figures
+
+files:
+  train_file: cs-training.csv
+  test_file: cs-test.csv
+  sample_file: sampleEntry.csv
+  model_file: credit_risk_model.joblib
+  submission_file: submission.csv
+  prediction_report_file: test_predictions_with_grade.csv
+  metrics_file: metrics.json
+
+target:
+  name: SeriousDlqin2yrs
+
+training:
+  test_size: 0.2
+  cv_folds: 5
+  threshold: 0.5
+
+model:
+  logistic_regression:
+    C: 1.0
+    max_iter: 1000
+    class_weight: balanced
+
+  random_forest:
+    n_estimators: 300
+    max_depth: 8
+    min_samples_split: 20
+    min_samples_leaf: 10
+    class_weight: balanced_subsample
+    n_jobs: -1
+
+credit_grade:
+  bins: [0.0, 0.03, 0.08, 0.15, 0.30, 1.0]
+  labels: ["A", "B", "C", "D", "E"]
